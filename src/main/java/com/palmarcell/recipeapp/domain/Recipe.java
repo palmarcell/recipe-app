@@ -1,6 +1,7 @@
 package com.palmarcell.recipeapp.domain;
 
 import javax.persistence.*;
+import java.util.Set;
 
 /**
  * Created by gemboly on 2018. 06. 21., 2018
@@ -22,6 +23,9 @@ public class Recipe {
     private String directions;
     //TODO
     //private Difficulty difficulty;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
+    private Set<Ingredient> ingredient;
 
     @Lob
     private Byte[] image;
