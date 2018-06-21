@@ -38,7 +38,7 @@ public class Recipe {
     @JoinTable(name = "recipe_category",
                 joinColumns = @JoinColumn(name = "recipe_id"),
                 inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> category;
+    private Set<Category> categories;
 
     public Long getId() {
         return id;
@@ -137,10 +137,10 @@ public class Recipe {
     }
 
     public Set<Category> getCategory() {
-        return category;
+        return categories;
     }
 
     public void setCategory(Set<Category> category) {
-        this.category = category;
+        this.categories = category;
     }
 }
