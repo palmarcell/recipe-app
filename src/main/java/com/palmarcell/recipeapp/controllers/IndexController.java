@@ -1,13 +1,9 @@
 package com.palmarcell.recipeapp.controllers;
 
-import com.palmarcell.recipeapp.domain.Category;
-import com.palmarcell.recipeapp.domain.UnitOfMeasure;
-import com.palmarcell.recipeapp.repositories.CategoryRepository;
-import com.palmarcell.recipeapp.repositories.UnitOfMeasureRepository;
+import com.palmarcell.recipeapp.services.RecipeService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import java.util.Optional;
 
 /**
  * Created by gemboly on 2018. 06. 21., 2018
@@ -15,22 +11,16 @@ import java.util.Optional;
 @Controller
 public class IndexController {
 
-    private CategoryRepository categoryRepository;
-    private UnitOfMeasureRepository unitOfMeasureRepository;
+    private final RecipeService recipeService;
 
-    public IndexController(CategoryRepository categoryRepository, UnitOfMeasureRepository unitOfMeasureRepository) {
-        this.categoryRepository = categoryRepository;
-        this.unitOfMeasureRepository = unitOfMeasureRepository;
+    public IndexController(RecipeService recipeService) {
+        this.recipeService = recipeService;
     }
 
     @RequestMapping({"", "/", "/index"})
-    public String getIndexPage(){
+    public String getIndexPage(Model model){
 
-        Optional<Category> categoryOptional = categoryRepository.findByDescription("American");
-        Optional<UnitOfMeasure> unitOfMeasureOptional = unitOfMeasureRepository.findByDescription("Teaspoon");
-
-        System.out.println("Cat ID is: " + categoryOptional.get().getId());
-        System.out.println("UOM ID is: " + unitOfMeasureOptional.get().getId());
+        model.addAttribute("recipes",recipeService.getRecipes());
 
         return "index";
     }
